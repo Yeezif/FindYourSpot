@@ -20,18 +20,18 @@ class CenterLocationButton extends StatelessWidget {
 
     return FloatingActionButton(
       heroTag: 'center_location_button',
-                    mini: true,
-                    backgroundColor: Colors.white,
-                    elevation: 4.0,
-                    onPressed: () {
-                      if (currentLocation != null) {
-                        mapController.move(currentLocation!, 15);
-                      }
-                    },
-                    child: const Icon(
-                      Icons.my_location_rounded, 
-                      color: Color(0xFF78909C)
-                    ) // == Colors.blueGrey[400]
+      mini: true,
+      backgroundColor: Colors.white,
+      elevation: 4.0,
+      onPressed: () {
+        if (currentLocation != null) {
+          mapController.move(currentLocation!, 15);
+        }
+      },
+      child: const Icon(
+        Icons.my_location_rounded, 
+        color: Color(0xFF78909C)
+      ) // == Colors.blueGrey[400]
     );
 
   }

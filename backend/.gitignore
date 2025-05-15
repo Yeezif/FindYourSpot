@@ -51,3 +51,5 @@ pids/
 *.swp
 *.bak
 *.old
+images/
+uploadImage.http
