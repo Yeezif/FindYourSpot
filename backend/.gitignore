@@ -53,3 +53,5 @@ pids/
 *.old
 images/
 uploadImage.http
+
+..docker-compose.yaml
