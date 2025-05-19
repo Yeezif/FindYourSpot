@@ -217,7 +217,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                 Positioned(
                   bottom: 14,
                   right: 14,
-                  child: CreateSpotButton(),
+                  child: CreateSpotButton(location: _currentLocation!),
                 ),
                 
 
