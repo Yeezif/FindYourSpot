@@ -88,7 +88,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
+          
           Text(
             spot['title'],
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
