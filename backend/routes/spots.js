@@ -28,12 +28,12 @@ router.post('/', verifyToken, validateFields(['title', 'location']), async (req,
 // console.log('📦 Request-Body:', req.body) ---- für debugging
 
     try {
-        const { title, description, location, rating } = req.body
+        const { title, description, location } = req.body
         const newSpot = new Spot({
             title,
             description,
             location,
-            rating
+            createdBy: req.user._id
         })
 
         await newSpot.save()

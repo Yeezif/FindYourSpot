@@ -123,7 +123,10 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final String apiKey = dotenv.env['MAPTILER_API_KEY'] ?? '';
+    // TODO: MapStyles global verwalten
+    // late String urlTemp ='${_mapStyles[_selectedMapStyle]}$apiKey';
     
+
     return Scaffold(
 
       // AppBar Top
@@ -181,7 +184,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                             ),
                             child: Text(
                               cluster.length.toString(),
-                              style: const TextStyle(color: Colors.white, fontSize: 12),
+                              style: const TextStyle(color: Colors.white, fontSize: 18),
                             ),
                           );
                         },
@@ -217,7 +220,14 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                 Positioned(
                   bottom: 14,
                   right: 14,
-                  child: CreateSpotButton(location: _currentLocation!),
+                  child: CreateSpotButton(
+                    location: _currentLocation!,
+                    onSpotCreated: (marker) {
+                      setState(() {
+                        _spotMarkers.add(marker);
+                      });
+                    },
+                  ),
                 ),
                 
 
