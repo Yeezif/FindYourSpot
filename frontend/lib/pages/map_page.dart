@@ -65,20 +65,20 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   }
 
   Future<void> fetchSpots() async {
-  try {
+    try {
 
-    final markers = await SpotService.fetchSpotMarkers(context, _buildSpotDetail);
+      final markers = await SpotService.fetchSpotMarkers(context, _buildSpotDetail);
 
-    setState(() {
-      _spotMarkers = markers;
-    });
+      setState(() {
+        _spotMarkers = markers;
+      });
 
-  } catch (e) {
+    } catch (e) {
 
-    debugPrint('Fehler beim Laden der Spots: $e');
+      debugPrint('Fehler beim Laden der Spots: $e');
 
+    }
   }
-}
 
 
   Widget _buildSpotDetail(Map spot) {
@@ -136,19 +136,26 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
       body: _currentLocation == null
           ? const Center(child: CircularProgressIndicator())
           : Stack(
+
               children: [
+
                 FlutterMap(
+
                   mapController: _mapController,
+
                   options: MapOptions(
                     initialCenter: _currentLocation!,
                     initialZoom: 15,
                     onMapReady: () => _mapReady = true,
                   ),
+                  
                   children: [
+
                     TileLayer(
                       urlTemplate: '${_mapStyles[_selectedMapStyle]}$apiKey',
                       userAgentPackageName: 'com.example.findyourspot',
                     ),
+                    
                     MarkerLayer(
                       markers: [
                         Marker(
@@ -161,12 +168,12 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                             size: 40,
                           ),
                         ),
-                        
                       ],
                     ),
 
                     MarkerClusterLayerWidget(
                       options: MarkerClusterLayerOptions(
+                        disableClusteringAtZoom: 16,
                         maxClusterRadius: 45,
                         size: const Size(40, 40),
                         markers: _spotMarkers,
@@ -224,15 +231,17 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                     location: _currentLocation!,
                     onSpotCreated: (marker) {
                       setState(() {
-                        _spotMarkers.add(marker);
+                        // _spotMarkers.add(marker);
+                        _spotMarkers = List.from(_spotMarkers)..add(marker);
                       });
+                      _mapController.move(marker.point, _mapController.camera.zoom);
                     },
                   ),
                 ),
                 
 
 
-                // Search Bar
+                // TODO: Search Bar
                 Positioned(
                   bottom: 14,
                   left: 108,

@@ -23,6 +23,7 @@ class SpotService {
           point: LatLng(lat, lng),
           width: 40,
           height: 40,
+          alignment: Alignment.topCenter,
           child: GestureDetector(
             onTap: () {
               showModalBottomSheet(
@@ -30,7 +31,7 @@ class SpotService {
                 builder: (_) => detailBuilder(spot),
               );
             },
-            child: const Icon(Icons.location_on, color: Colors.red, size: 30),
+            child: const Icon(Icons.location_pin, color: Colors.red, size: 36, ),
           ),
         );
       }).toList();

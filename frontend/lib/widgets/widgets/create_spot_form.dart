@@ -197,7 +197,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
           width: 40,
           height: 40,
           alignment: Alignment.topCenter,
-          child: const Icon(Icons.place, color: Colors.red, size: 40),
+          child: const Icon(Icons.location_pin, color: Colors.red, size: 36),
         );
 
         // callback to mappage
