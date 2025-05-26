@@ -6,7 +6,7 @@ import 'package:flutter_map/flutter_map.dart';
 class CreateSpotButton extends StatelessWidget {
 
   final LatLng location;
-  final void Function(Marker) onSpotCreated;
+  final void Function(Map) onSpotCreated;
 
   const CreateSpotButton ({
     super.key,

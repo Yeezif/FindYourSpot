@@ -229,12 +229,19 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                   right: 14,
                   child: CreateSpotButton(
                     location: _currentLocation!,
-                    onSpotCreated: (marker) {
+                    onSpotCreated: (spotData) {
+                      final newMarker = SpotService.buildMarkerFromSpot(
+                        context: context,
+                        spot: spotData,
+                        detailBuilder: _buildSpotDetail
+                      );
+
                       setState(() {
                         // _spotMarkers.add(marker);
-                        _spotMarkers = List.from(_spotMarkers)..add(marker);
+                        _spotMarkers = List.from(_spotMarkers)..add(newMarker);
                       });
-                      _mapController.move(marker.point, _mapController.camera.zoom);
+                      _mapController.move(newMarker.point, _mapController.camera.zoom);
+                    
                     },
                   ),
                 ),

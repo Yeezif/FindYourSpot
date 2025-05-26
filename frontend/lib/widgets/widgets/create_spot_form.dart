@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateSpotForm extends StatefulWidget {
   final LatLng location;
-  final void Function(Marker) onSpotCreated;
+  final void Function(Map spotData) onSpotCreated;
 
   const CreateSpotForm({
     super.key, 
@@ -137,7 +137,6 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
                     if (_formKey.currentState!.validate()) {
                       setState(() => _isSaving = true);
                       await _saveSpot();
-                      if (context.mounted) Navigator.of(context).pop(); // Schließt das Dialog-Fenster
                     }
                   },
             child: _isSaving
@@ -185,23 +184,27 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
       if (response.statusCode == 201) {
         
-        print('Spot erfolgreich erstellt');
-        // TODO: success message
+        // print('Spot erfolgreich erstellt');
+        // // TODO: success message
 
-        // set marker
-        final newMarker = Marker(
-          point: LatLng(
-            double.tryParse(_latController.text) ?? widget.location.latitude, 
-            double.tryParse(_lngController.text) ?? widget.location.longitude,
-          ),
-          width: 40,
-          height: 40,
-          alignment: Alignment.topCenter,
-          child: const Icon(Icons.location_pin, color: Colors.red, size: 36),
-        );
+        // // set marker
+        // final newMarker = Marker(
+        //   point: LatLng(
+        //     double.tryParse(_latController.text) ?? widget.location.latitude, 
+        //     double.tryParse(_lngController.text) ?? widget.location.longitude,
+        //   ),
+        //   width: 40,
+        //   height: 40,
+        //   alignment: Alignment.topCenter,
+        //   child: const Icon(Icons.location_pin, color: Colors.red, size: 36),
+        // );
 
-        // callback to mappage
-        widget.onSpotCreated(newMarker);
+        // // callback to mappage
+        // widget.onSpotCreated(newMarker);
+
+        final createdSpot = jsonDecode(response.body);
+        widget.onSpotCreated(createdSpot);
+        if (context.mounted) Navigator.of(context).pop();
 
       } else {
 
