@@ -23,7 +23,8 @@ const spotSchema = new mongoose.Schema({
         },
     },
 
-    images: [String],
+    ownerImages: [String],
+    userImages: [String],
 
     tags: [String],
 
