@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
+
+
+
 // ----------------------------------------------------------------------------------------
 // -------------------------------------- LIGHT THEME --------------------------------------
 // ----------------------------------------------------------------------------------------
@@ -15,12 +18,14 @@ final ThemeData lightTheme = ThemeData(
   cardColor: AppColorsLight.backgroundPrimary,
   iconTheme: IconThemeData(color: AppColorsLight.icon),
 
+  // TEXT THEME
   textTheme: TextTheme(
     bodyLarge: TextStyle(color: AppColorsLight.textPrimary),
     bodyMedium: TextStyle(color: AppColorsLight.textPrimary),
     labelLarge: TextStyle(color: AppColorsLight.textPrimary),
   ),
   
+  // COLOR SCHEME
   colorScheme: ColorScheme.dark(
     primary: AppColorsLight.icon,
     onPrimary: AppColorsLight.icon, 
@@ -28,10 +33,12 @@ final ThemeData lightTheme = ThemeData(
     onSurface: AppColorsLight.icon  
   ),
 
+  // DIALOG THEME
   dialogTheme: DialogTheme(
     backgroundColor: AppColorsLight.backgroundSecondary, //backgroundSecondary
   ),
 
+  // ELEVATED BUTTON THEME
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColorsLight.backgroundPrimary),
@@ -47,12 +54,14 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
+  // FLOATING ACTION BUTTON THEME
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: AppColorsLight.backgroundPrimary,
     foregroundColor: AppColorsLight.icon,
     elevation: 4,
   ),
 
+  // TEXT BUTTON THEME
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColorsLight.backgroundPrimary),
@@ -60,6 +69,7 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
+  // OUTLINED BUTTON THEME
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColorsLight.backgroundPrimary),
@@ -68,12 +78,14 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
+  // BOTTOM NAVIGATION BAR THEME
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: AppColorsLight.backgroundSecondary,
     selectedItemColor: AppColorsLight.iconSelected,
     unselectedItemColor: AppColorsLight.icon
   ),
 
+  // CHOICE CHIP THEME
   chipTheme: ChipThemeData(
     selectedColor: AppColorsLight.iconSelected,
     backgroundColor: AppColorsLight.backgroundSecondary,
@@ -83,16 +95,19 @@ final ThemeData lightTheme = ThemeData(
     brightness: Brightness.dark,
   ),
 
+  // SEARCH BAR THEME
   searchBarTheme: SearchBarThemeData(
     elevation: WidgetStateProperty.all<double>(4.0),
     backgroundColor: WidgetStateProperty.all(AppColorsLight.backgroundPrimary),
   ),
 
+  // APP BAR THEME
   appBarTheme: AppBarTheme(
     color: AppColorsLight.backgroundSecondary,
     foregroundColor: AppColorsLight.icon,
   ),
 
+  // INPUT DECORATION THEME
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColorsLight.backgroundPrimary,
@@ -122,12 +137,14 @@ final ThemeData darkTheme = ThemeData(
   cardColor: AppColorsDark.backgroundPrimary,
   iconTheme: IconThemeData(color: AppColorsDark.icon),
 
+  // TEXT THEME
   textTheme: TextTheme(
     bodyLarge: TextStyle(color: AppColorsDark.textPrimary),
     bodyMedium: TextStyle(color: AppColorsDark.textPrimary),
     labelLarge: TextStyle(color: AppColorsDark.textPrimary),
   ),
   
+  // COLOR SCHEME
   colorScheme: ColorScheme.dark(
     primary: AppColorsDark.icon,
     onPrimary: AppColorsDark.icon, 
@@ -135,10 +152,12 @@ final ThemeData darkTheme = ThemeData(
     onSurface: AppColorsDark.icon  
   ),
 
+  // DIALOG THEME
   dialogTheme: DialogTheme(
     backgroundColor: AppColorsDark.backgroundSecondary, //backgroundSecondary
   ),
 
+  // ELEVATED BUTTON THEME
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
@@ -153,13 +172,15 @@ final ThemeData darkTheme = ThemeData(
       side: WidgetStateProperty.all(BorderSide(color: AppColorsDark.icon)),
     ),
   ),
-
+  
+  // FLOATING ACTION BUTTON THEME
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: AppColorsDark.backgroundPrimary,
     foregroundColor: AppColorsDark.icon,
     elevation: 4,
   ),
 
+  // TEXT BUTTON THEME
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
@@ -167,6 +188,7 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
+  // OUTLINED BUTTON THEME
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
@@ -175,12 +197,14 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
+  // BOTTOM NAVIGATION BAR THEME
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: AppColorsDark.backgroundSecondary,
     selectedItemColor: AppColorsDark.iconSelected,
     unselectedItemColor: AppColorsDark.icon
   ),
 
+  // CHOICE CHIP THEME
   chipTheme: ChipThemeData(
     selectedColor: AppColorsDark.iconSelected,
     backgroundColor: AppColorsDark.backgroundSecondary,
@@ -190,16 +214,19 @@ final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
   ),
 
+  // SEARCH BAR THEME
   searchBarTheme: SearchBarThemeData(
     elevation: WidgetStateProperty.all<double>(4.0),
     backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
   ),
 
+  // APP BAR THEME
   appBarTheme: AppBarTheme(
     color: AppColorsDark.backgroundSecondary,
     foregroundColor: AppColorsDark.icon,
   ),
 
+  // INPUT DECORATION THEME
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColorsDark.backgroundPrimary,
