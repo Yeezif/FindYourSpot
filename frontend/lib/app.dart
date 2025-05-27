@@ -1,4 +1,5 @@
 import 'package:findyourspot/layout/app_shell.dart';
+import 'package:findyourspot/theme/theme.dart';
 import '/pages/pages.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: isLoggedIn ? const AppShell() : const AuthPage(),
       debugShowCheckedModeBanner: false,
+
+      theme: lightTheme, // ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
     );
 
   }

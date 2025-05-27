@@ -25,7 +25,6 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
             },
             icon: Icon(Icons.account_circle),
             iconSize: 30,
-            color: const Color(0xFF78909C),
           ),
         ),
       ],
@@ -37,15 +36,11 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             // TODO: Settings Page
           },
-          icon: Icon(
-            Icons.settings_rounded,
-            color: const Color(0xFF78909C),
-          ),
+          icon: Icon(Icons.settings_rounded),
           iconSize: 30,
         ),
-
-        ),
-      );  
+      ),
+    );  
   }
 
   @override

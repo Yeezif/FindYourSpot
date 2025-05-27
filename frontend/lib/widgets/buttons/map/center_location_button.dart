@@ -100,8 +100,6 @@ class _CenterLocationButtonState extends State<CenterLocationButton> with Ticker
     return FloatingActionButton(
       heroTag: 'center_location_button',
       mini: true,
-      backgroundColor: Colors.white,
-      elevation: 4.0,
       onPressed: () {
         if (widget.currentLocation != null) {
           if (widget.currentLocation != widget.mapController.camera.center) {
@@ -109,10 +107,7 @@ class _CenterLocationButtonState extends State<CenterLocationButton> with Ticker
           }
         }
       },
-      child: const Icon(
-        Icons.my_location_rounded, 
-        color: Color(0xFF78909C)
-      ) // == Colors.blueGrey[400]
+      child: const Icon(Icons.my_location_rounded)
     );
 
   }

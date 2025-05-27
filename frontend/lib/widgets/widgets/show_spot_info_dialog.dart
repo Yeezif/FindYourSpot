@@ -451,20 +451,30 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                             children: [
 
                               Expanded(
-                                child: ChoiceChip(
-                                  label: const Center(child: Text('Fotos')),
-                                  selected: selectedCategory == ImageCategory.owner,
-                                  onSelected: (_) {
-                                    setState(() {
-                                      selectedCategory = ImageCategory.owner;
-                                    });
-                                  },
-                                  selectedColor: Colors.blue,
-                                  backgroundColor: Colors.grey[300],
-                                  labelStyle: TextStyle(
-                                    color: selectedCategory == ImageCategory.owner ? Colors.white : Colors.black,
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    splashFactory: NoSplash.splashFactory,
                                   ),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                  child: ChoiceChip(
+                                    label: const Center(child: Text('Fotos')),
+                                    selected: selectedCategory == ImageCategory.owner,
+                                    onSelected: (_) {
+                                      setState(() {
+                                        selectedCategory = ImageCategory.owner;
+                                      });
+                                    },
+                                    // selectedColor: Theme.of(context).colorScheme.primary,
+                                    // backgroundColor: Theme.of(context).colorScheme.surface,
+                                    // labelStyle: TextStyle(
+                                    //   color: selectedCategory == ImageCategory.owner 
+                                    //       ? Theme.of(context).colorScheme.onPrimary
+                                    //       : Theme.of(context).colorScheme.onSurface,
+                                    // ),
+
+                                    // TODO: fix ripple effect
+
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                  ),
                                 ),
                               ),
 
@@ -479,11 +489,16 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                                       selectedCategory = ImageCategory.user;
                                     });
                                   },
-                                  selectedColor: Colors.blue,
-                                  backgroundColor: Colors.grey[300],
-                                  labelStyle: TextStyle(
-                                    color: selectedCategory == ImageCategory.user ? Colors.white : Colors.black,
-                                  ),
+                                  // selectedColor: Theme.of(context).colorScheme.primary,
+                                  // backgroundColor: Theme.of(context).colorScheme.surface,
+                                  // labelStyle: TextStyle(
+                                  //   color: selectedCategory == ImageCategory.user 
+                                  //       ? Theme.of(context).colorScheme.onPrimary
+                                  //       : Theme.of(context).colorScheme.onSurface,
+                                  // ),
+
+                                  // TODO: fix ripple effect
+
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                                 ),
                               ),

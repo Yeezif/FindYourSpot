@@ -21,8 +21,6 @@ class CreateSpotButton extends StatelessWidget {
       height: 80,
       child: FloatingActionButton(
         heroTag: 'create_spot_button',                    
-        backgroundColor: Colors.white,
-        elevation: 4.0,
         onPressed: () {
           showDialog(
             context: context,
@@ -50,7 +48,6 @@ class CreateSpotButton extends StatelessWidget {
         },
         child: Icon(
           Icons.add_rounded,
-          color: Colors.blueGrey[400],
           size: 40,                     
         ),
       ),

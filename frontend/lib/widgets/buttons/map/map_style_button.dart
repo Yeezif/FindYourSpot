@@ -27,7 +27,6 @@ class MapStyleButtonGroup extends StatelessWidget {
         FloatingActionButton(
           mini: true,
           heroTag: 'main-style-button',
-          elevation: 4.0,
           onPressed: () {
             if (controller.status == AnimationStatus.dismissed) {
               controller.forward();
@@ -35,11 +34,7 @@ class MapStyleButtonGroup extends StatelessWidget {
               controller.reverse();
             }
           },
-          backgroundColor: Colors.white,
-          child: Icon(
-            Icons.layers,
-            color: Colors.blueGrey[400],
-          ),
+          child: Icon(Icons.layers_rounded),
         ),
         const SizedBox(height: 8),
 
@@ -55,9 +50,8 @@ class MapStyleButtonGroup extends StatelessWidget {
                   mini: true,
                   heroTag: entry.key,
                   backgroundColor: selectedMapStyle == entry.key
-                      ? Colors.blueGrey[400]
-                      : Colors.white,
-                  elevation: 4.0,
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.surface,
                   onPressed: () {
                     onStyleSelected(entry.key);
                     controller.reverse();
@@ -65,8 +59,8 @@ class MapStyleButtonGroup extends StatelessWidget {
                   child: Icon(
                     entry.value,
                     color: selectedMapStyle == entry.key
-                        ? Colors.white
-                        : Colors.blueGrey[400],
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).iconTheme.color,
                   ),
                 ),
               ),

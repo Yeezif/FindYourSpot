@@ -140,7 +140,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
                     }
                   },
             child: _isSaving
-                ? CircularProgressIndicator(color: Colors.white)
+                ? CircularProgressIndicator(color: const Color(0xFF546E7A))
                 : Text('Spot erstellen'),
           ),
         ],
@@ -184,23 +184,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
       if (response.statusCode == 201) {
         
-        // print('Spot erfolgreich erstellt');
-        // // TODO: success message
-
-        // // set marker
-        // final newMarker = Marker(
-        //   point: LatLng(
-        //     double.tryParse(_latController.text) ?? widget.location.latitude, 
-        //     double.tryParse(_lngController.text) ?? widget.location.longitude,
-        //   ),
-        //   width: 40,
-        //   height: 40,
-        //   alignment: Alignment.topCenter,
-        //   child: const Icon(Icons.location_pin, color: Colors.red, size: 36),
-        // );
-
-        // // callback to mappage
-        // widget.onSpotCreated(newMarker);
+        // TODO: Success Message
 
         final createdSpot = jsonDecode(response.body);
         widget.onSpotCreated(createdSpot);
@@ -208,8 +192,8 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
       } else {
 
-        print('Fehler beim Erstellen: ${response.statusCode}');
-        print(response.body);
+        debugPrint('Fehler beim Erstellen: ${response.statusCode}');
+        debugPrint(response.body);
         
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Fehler: ${response.statusCode}'))
@@ -219,7 +203,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
     } catch (e) {
 
-      print('HTTP Fehler: $e');
+      debugPrint('HTTP Fehler: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Verbindungsfehler: $e'))
       );

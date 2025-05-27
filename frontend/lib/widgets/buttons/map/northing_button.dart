@@ -69,16 +69,11 @@ class _NorthingButtonState extends State<NorthingButton> with SingleTickerProvid
     return FloatingActionButton(
       heroTag: 'northing_button',
       mini: true,
-      backgroundColor: Colors.white,
-      elevation: 4.0,
       onPressed: _animateToNorth,
       
       child: Transform.rotate(
         angle: widget.mapRotation * (math.pi / 180), // conversion to radians
-        child: const Icon(
-          Icons.navigation_rounded,
-          color: Color(0xFF78909C)
-        )
+        child: const Icon(Icons.navigation_rounded)
       )
     );
 
