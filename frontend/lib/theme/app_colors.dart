@@ -67,3 +67,15 @@ class AppColorsDark {
 
 
 }
+
+class AppColorsDarkHC {
+
+  // TODO: HIGH CONTRAST THEMES
+
+}
+
+class AppColorsLightHC {
+
+  // TODO: HIGH CONTRAST THEMES
+
+}
