@@ -255,8 +255,6 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                   right: 108,
                   child: SearchBar(
                     hintText: 'Suchen...',
-                    backgroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                    elevation: WidgetStateProperty.all<double>(4.0),
                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)
