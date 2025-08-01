@@ -123,7 +123,7 @@ class _SpotSearchWidgetState extends State<SpotSearchWidget> {
       },
       trailing: [
         IconButton(
-          icon: const Icon(Icons.clear),
+          icon: const Icon(Icons.clear_rounded),
           onPressed: () {
             _controller.clear();
             setState(() {
@@ -131,7 +131,13 @@ class _SpotSearchWidgetState extends State<SpotSearchWidget> {
               _geoResults.clear();
             });
           },
-        )
+        ),
+        IconButton(
+          icon: const Icon(Icons.search_rounded),
+          onPressed: () {
+            _onSearch(_controller.text);
+          },
+        ),
       ],
     );
     

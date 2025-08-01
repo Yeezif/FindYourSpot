@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_colors_set.dart';
 import 'app_colors.dart';
 
 
@@ -17,6 +18,17 @@ final ThemeData lightTheme = ThemeData(
   canvasColor: AppColorsLight.backgroundPrimary,
   cardColor: AppColorsLight.backgroundPrimary,
   iconTheme: IconThemeData(color: AppColorsLight.icon),
+
+  extensions: const <ThemeExtension<dynamic>>[
+    AppColorSet(
+      icon: AppColorsLight.icon,
+      iconSelected: AppColorsLight.iconSelected,
+      iconUnselected: AppColorsLight.iconUnselected,
+      textPrimary: AppColorsLight.textPrimary,
+      backgroundPrimary: AppColorsLight.backgroundPrimary,
+      backgroundSecondary: AppColorsLight.backgroundSecondary,
+    ),
+  ],
 
   // TEXT THEME
   textTheme: TextTheme(
@@ -136,6 +148,17 @@ final ThemeData darkTheme = ThemeData(
   canvasColor: AppColorsDark.backgroundPrimary,
   cardColor: AppColorsDark.backgroundPrimary,
   iconTheme: IconThemeData(color: AppColorsDark.icon),
+
+  extensions: const <ThemeExtension<dynamic>>[
+    AppColorSet(
+      icon: AppColorsDark.icon,
+      iconSelected: AppColorsDark.iconSelected,
+      iconUnselected: AppColorsDark.iconUnselected,
+      textPrimary: AppColorsDark.textPrimary,
+      backgroundPrimary: AppColorsDark.backgroundPrimary,
+      backgroundSecondary: AppColorsDark.backgroundSecondary,
+    ),
+  ],
 
   // TEXT THEME
   textTheme: TextTheme(

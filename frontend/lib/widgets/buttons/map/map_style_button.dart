@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:findyourspot/theme/app_colors.dart';
+import 'package:findyourspot/theme/app_colors_set.dart';
 
 class MapStyleButtonGroup extends StatelessWidget {
   final AnimationController controller;
@@ -20,6 +22,8 @@ class MapStyleButtonGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<AppColorSet>()!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -34,7 +38,7 @@ class MapStyleButtonGroup extends StatelessWidget {
               controller.reverse();
             }
           },
-          child: Icon(Icons.layers_rounded),
+          child: const Icon(Icons.layers_rounded),
         ),
         const SizedBox(height: 8),
 
@@ -50,19 +54,21 @@ class MapStyleButtonGroup extends StatelessWidget {
                   mini: true,
                   heroTag: entry.key,
                   backgroundColor: selectedMapStyle == entry.key
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).colorScheme.surface,
-                  onPressed: () {
+                      ? colors.icon
+                      : colors.backgroundPrimary,
+                  onPressed: () async {
                     onStyleSelected(entry.key);
+                    await Future.delayed(const Duration(milliseconds: 300));
                     controller.reverse();
                   },
                   child: Icon(
                     entry.value,
                     color: selectedMapStyle == entry.key
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).iconTheme.color,
+                        ? colors.backgroundPrimary
+                        : colors.icon,
                   ),
                 ),
+                
               ),
             );
           }),
