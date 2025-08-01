@@ -55,8 +55,6 @@ class _AuthPageState extends State<AuthPage> {
       }
 
       
-
-      // TODO: Erfolg: Token oder User-Daten nutzen
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
       await prefs.setString('authToken', data['token']);  // save token
@@ -69,8 +67,6 @@ class _AuthPageState extends State<AuthPage> {
         context,
         MaterialPageRoute(builder: (_) => const AppShell()),
       );
-
-      // TODO: Weiterleiten oder speichern
 
     } catch (e) {
       setState(() {

@@ -1,21 +1,22 @@
 // routes/spots.js
 
-import express from 'express'
-import Spot from '../models/Spot.js'
-import verifyToken from '../middleware/verifyToken.js'
-import isAdmin from '../middleware/isAdmin.js'
-import isOwnerOrAdmin from '../middleware/isOwnerorAdmin.js'
-// import { verify } from 'jsonwebtoken'
-import { validateFields } from '../middleware/validateFields.js'
-import upload from '../middleware/upload.js'
+import express from 'express';
+import Spot from '../models/Spot.js';
+import verifyToken from '../middleware/verifyToken.js';
+import isAdmin from '../middleware/isAdmin.js';
+import isOwnerOrAdmin from '../middleware/isOwnerorAdmin.js';
+// import { verify } from 'jsonwebtoken';
+import { validateFields } from '../middleware/validateFields.js';
+import upload from '../middleware/upload.js';
 
-const router = express.Router()
+const router = express.Router();
+
 
 // GET /api/spots → alle Spots holen
 router.get('/', async (req, res) => {
     try {
-        const spots = await Spot.find()
-        res.json(spots)
+        const spots = await Spot.find();
+        res.json(spots);
     } catch (error) {
         res.status(500).json({ error: 'Fehler beim Laden der Spots' })
     }

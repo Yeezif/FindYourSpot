@@ -237,7 +237,6 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                       );
 
                       setState(() {
-                        // _spotMarkers.add(marker);
                         _spotMarkers = List.from(_spotMarkers)..add(newMarker);
                       });
                       _mapController.move(newMarker.point, _mapController.camera.zoom);
@@ -253,14 +252,14 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                   bottom: 14,
                   left: 108,
                   right: 108,
-                  child: SearchBar(
-                    hintText: 'Suchen...',
-                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)
-                      )
-                    )
+                  child: SafeArea(
+                    child: SpotSearchWidget(
+                      mapController: MapController(),
+                    ),
                   ),
+                  // child: SpotSearchWidget(
+                  //   mapController: MapController(),
+                  // ),
                 ),
 
 
