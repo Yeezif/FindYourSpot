@@ -57,7 +57,7 @@ import 'dart:convert';
 class SpotSearchWidget extends StatefulWidget {
   final MapController mapController;
 
-  const SpotSearchWidget({Key? key, required this.mapController}) : super(key: key);
+  const SpotSearchWidget({super.key, required this.mapController});
 
   @override
   _SpotSearchWidgetState createState() => _SpotSearchWidgetState();

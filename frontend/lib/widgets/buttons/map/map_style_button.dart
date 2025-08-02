@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:findyourspot/theme/app_colors.dart';
 import 'package:findyourspot/theme/app_colors_set.dart';
 
 class MapStyleButtonGroup extends StatelessWidget {
