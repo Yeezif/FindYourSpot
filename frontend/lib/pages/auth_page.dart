@@ -54,10 +54,20 @@ class _AuthPageState extends State<AuthPage> {
         return;
       }
 
+      if (!isLogin) {
+        setState(() {
+          error = 'Registration successfull, please verify your email';
+          isLoading = false;
+        });
+        return;
+      }
+
       
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
-      await prefs.setString('authToken', data['token']);  // save token
+      if (data['token'] != null) {
+        await prefs.setString('authToken', data['token']);  // save token
+      }
       
       setState(() => isLoading = false);
 

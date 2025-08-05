@@ -38,6 +38,6 @@ app.get('/', (req, res) => {
 })
 
 // Server starten auf Port 5000
-app.listen(5000, () => {
+app.listen(5000, '0.0.0.0', () => {
   console.log('🚀 Server läuft auf http://localhost:5000')
 })
