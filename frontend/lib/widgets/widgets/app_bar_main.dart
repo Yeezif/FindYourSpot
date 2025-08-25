@@ -1,12 +1,11 @@
 import 'package:findyourspot/services/logout_service.dart';
+import 'package:findyourspot/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
 
-  const AppBarMain({
-    super.key
-  });
+  const AppBarMain({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,10 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
         padding: EdgeInsets.only(left: 10.0),
         child: IconButton(
           onPressed: () {
-            // TODO: Settings Page
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            ); 
           },
           icon: Icon(Icons.settings_rounded),
           iconSize: 30,
