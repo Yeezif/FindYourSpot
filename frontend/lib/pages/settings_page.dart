@@ -1,4 +1,3 @@
-import 'package:findyourspot/theme/app_colors.dart';
 import 'package:findyourspot/widgets/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
