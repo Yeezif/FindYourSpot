@@ -10,15 +10,27 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBarSettings(),
       body: SettingsList(
 
         platform: DevicePlatform.android,
         lightTheme: SettingsThemeData(
-          settingsListBackground: AppColorsLight.backgroundPrimary,
-          settingsSectionBackground: AppColorsLight.panels,
-          titleTextColor: AppColorsLight.textPrimary,
+          settingsListBackground: theme.scaffoldBackgroundColor,
+          settingsSectionBackground: theme.cardColor,
+          titleTextColor: theme.textTheme.bodyLarge?.color,
+          settingsTileTextColor: theme.textTheme.bodyMedium?.color,
+          leadingIconsColor: theme.iconTheme.color,
+        ),
+        darkTheme: SettingsThemeData(
+          settingsListBackground: theme.scaffoldBackgroundColor,
+          settingsSectionBackground: theme.cardColor,
+          titleTextColor: theme.textTheme.bodyLarge?.color,
+          settingsTileTextColor: theme.textTheme.bodyMedium?.color,
+          leadingIconsColor: theme.iconTheme.color,
         ),
 
         sections: [
@@ -92,7 +104,7 @@ class SettingsPage extends StatelessWidget {
               SettingsTile.navigation(
                 leading: const Icon(Icons.logout_rounded),
                 title: const Text('Logout'),
-                // onPressed: (context) => logout(context), TODO: Popup Dialog
+                onPressed: (context) => logout(context), // TODO: Popup Dialog
               ),
 
               SettingsTile.navigation(
