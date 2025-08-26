@@ -16,7 +16,7 @@ final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: AppColorsLight.backgroundPrimary,
   canvasColor: AppColorsLight.backgroundPrimary,
-  cardColor: AppColorsLight.backgroundPrimary,
+  cardColor: AppColorsLight.backgroundSecondary,
   iconTheme: IconThemeData(color: AppColorsLight.icon),
 
   extensions: const <ThemeExtension<dynamic>>[
@@ -146,7 +146,7 @@ final ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: AppColorsDark.backgroundPrimary,
   canvasColor: AppColorsDark.backgroundPrimary,
-  cardColor: AppColorsDark.backgroundPrimary,
+  cardColor: AppColorsDark.backgroundSecondary,
   iconTheme: IconThemeData(color: AppColorsDark.icon),
 
   extensions: const <ThemeExtension<dynamic>>[
@@ -183,7 +183,7 @@ final ThemeData darkTheme = ThemeData(
   // ELEVATED BUTTON THEME
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
+      backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundSecondary),
       foregroundColor: WidgetStateProperty.all(AppColorsDark.textPrimary),
       elevation: WidgetStateProperty.all(4), 
       overlayColor: WidgetStateProperty.resolveWith((states) {
@@ -198,7 +198,7 @@ final ThemeData darkTheme = ThemeData(
   
   // FLOATING ACTION BUTTON THEME
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: AppColorsDark.backgroundPrimary,
+    backgroundColor: AppColorsDark.backgroundSecondary,
     foregroundColor: AppColorsDark.icon,
     elevation: 4,
   ),
@@ -206,7 +206,7 @@ final ThemeData darkTheme = ThemeData(
   // TEXT BUTTON THEME
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
+      backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundSecondary),
       foregroundColor: WidgetStateProperty.all(AppColorsDark.icon),
     ),
   ),
@@ -214,7 +214,7 @@ final ThemeData darkTheme = ThemeData(
   // OUTLINED BUTTON THEME
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
+      backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundSecondary),
       foregroundColor: WidgetStateProperty.all(AppColorsDark.icon),
       side: WidgetStateProperty.all(BorderSide(color: AppColorsDark.icon)),
     ),
@@ -222,7 +222,7 @@ final ThemeData darkTheme = ThemeData(
 
   // BOTTOM NAVIGATION BAR THEME
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: AppColorsDark.backgroundSecondary,
+    backgroundColor: AppColorsDark.backgroundPrimary,
     selectedItemColor: AppColorsDark.iconSelected,
     unselectedItemColor: AppColorsDark.icon
   ),
@@ -240,12 +240,12 @@ final ThemeData darkTheme = ThemeData(
   // SEARCH BAR THEME
   searchBarTheme: SearchBarThemeData(
     elevation: WidgetStateProperty.all<double>(4.0),
-    backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundPrimary),
+    backgroundColor: WidgetStateProperty.all(AppColorsDark.backgroundSecondary),
   ),
 
   // APP BAR THEME
   appBarTheme: AppBarTheme(
-    color: AppColorsDark.backgroundSecondary,
+    color: AppColorsDark.backgroundPrimary,
     foregroundColor: AppColorsDark.icon,
   ),
 

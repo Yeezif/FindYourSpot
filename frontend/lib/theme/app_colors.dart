@@ -45,8 +45,8 @@ class AppColorsLight {
 class AppColorsDark {
 
   // main colors - dark background base
-  static const Color backgroundPrimary = Color(0xFF1E1E1E);
-  static const Color backgroundSecondary = Color(0xFF121212);
+  static const Color backgroundPrimary = Color(0xFF000000);
+  static const Color backgroundSecondary = Color(0xFF1E1E1E);
   static const Color panels = Color(0xFF2a2a3c);
   
   // accent colors - neutral tones
