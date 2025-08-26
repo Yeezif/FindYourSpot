@@ -48,11 +48,21 @@ class _NorthingButtonState extends State<NorthingButton> with SingleTickerProvid
 
     _controller.reset();
 
+    double begin = widget.mapRotation;
+    double end = 0.0;
+
+    // Winkel-Differenz auf den kürzesten Weg mappen
+    double diff = (end - begin) % 360;
+    if (diff > 180) diff -= 360;
+    if (diff < -180) diff += 360;
+
+    double target = begin + diff;
+
     _rotationAnimation = Tween<double>(
-      begin: widget.mapRotation,
-      end: 0.0,
+      begin: begin,
+      end: target,
     ).animate(CurvedAnimation(
-      parent: _controller, 
+      parent: _controller,
       curve: Curves.easeOut,
     ))
       ..addListener(() {
