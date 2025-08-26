@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AccessabilitySettings extends StatelessWidget {
-  const AccessabilitySettings({super.key});
+class AccessibilitySettings extends StatelessWidget {
+  const AccessibilitySettings({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:findyourspot/widgets/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:findyourspot/services/logout_service.dart';
+import 'settings_categories/settings_categories.dart';
 
 class SettingsPage extends StatelessWidget {
   
@@ -54,16 +55,28 @@ class SettingsPage extends StatelessWidget {
                   SettingsTile.navigation(
                     leading: const Icon(Icons.notifications_rounded),
                     title: const Text('Notifications'),
+                    onPressed: (context) => Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const NotificationSettings()),
+                    )
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.location_pin),
                     title: const Text('Location Services'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LocationSettings()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.delete_forever_rounded),
                     title: const Text('Clear Cache'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ClearCache()),
+                    ),
                   ),
 
                 ],
@@ -90,16 +103,28 @@ class SettingsPage extends StatelessWidget {
                   SettingsTile.navigation(
                     leading: const Icon(Icons.language_rounded),
                     title: const Text('Language'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LanguageSettings()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.text_fields_rounded),
                     title: const Text('Text Size'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AccessibilitySettings()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.settings_display),
                     title: const Text('Color Theme'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ColorThemeSettings()),
+                    ),
                   ),
 
                 ],
@@ -126,16 +151,28 @@ class SettingsPage extends StatelessWidget {
                   SettingsTile.navigation(
                     leading: const Icon(Icons.person_rounded),
                     title: const Text('Edit Profile'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditProfile()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.lock_rounded),
                     title: const Text('Change Password'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ChangePassword()),
+                    )
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.email_rounded),
                     title: const Text('Change Email'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ChangeEmail()),
+                    )
                   ),
 
                   SettingsTile.navigation(
@@ -147,6 +184,10 @@ class SettingsPage extends StatelessWidget {
                   SettingsTile.navigation(
                     leading: const Icon(Icons.delete_rounded),
                     title: const Text('Delete Account'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const DeleteAccount()),
+                    ),
                   ),
 
                 ],
@@ -175,21 +216,37 @@ class SettingsPage extends StatelessWidget {
                   SettingsTile.navigation(
                     leading: const Icon(Icons.privacy_tip_rounded),
                     title: const Text('Privacy Policy'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PrivacyPolicy()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.info_rounded),
                     title: const Text('About'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AboutPage()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.bug_report_rounded),
                     title: const Text('Report a Bug'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ReportABug()),
+                    ),
                   ),
 
                   SettingsTile.navigation(
                     leading: const Icon(Icons.contact_support_rounded),
                     title: const Text('Contact Support'),
+                    onPressed: (context) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ContactSupport()),
+                    ),
                   ),
 
 
