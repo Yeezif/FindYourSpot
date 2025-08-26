@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DeleteAccount extends StatelessWidget {
-  const DeleteAccount({super.key});
+class LocationSettings extends StatelessWidget {
+  const LocationSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Delete Account"),
+      child: Text("Location Settings"),
     );
   }
 }
