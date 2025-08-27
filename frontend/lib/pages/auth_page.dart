@@ -21,6 +21,19 @@ class _AuthPageState extends State<AuthPage> {
   String username = '';
   String error = '';
 
+
+  String parseJwt(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      throw Exception('Invalid token');
+    }
+
+    final payload = parts[1];
+    var normalized = base64Url.normalize(payload);
+    final decoded = utf8.decode(base64Url.decode(normalized));
+    return decoded;
+  }
+
   Future<void> submit() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) return;
@@ -67,6 +80,14 @@ class _AuthPageState extends State<AuthPage> {
       await prefs.setBool('isLoggedIn', true);
       if (data['token'] != null) {
         await prefs.setString('authToken', data['token']);  // save token
+
+        final decoded = parseJwt(data['token']);
+        final decodedMap = jsonDecode(decoded);
+        final userId = decodedMap['id']?.toString() ?? '';
+        await prefs.setString('id', userId);
+
+        print('User ID: $userId');
+
       }
       
       setState(() => isLoading = false);

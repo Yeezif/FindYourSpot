@@ -8,6 +8,8 @@ import isOwnerOrAdmin from '../middleware/isOwnerorAdmin.js';
 // import { verify } from 'jsonwebtoken';
 import { validateFields } from '../middleware/validateFields.js';
 import upload from '../middleware/upload.js';
+// import { v2 as cloudinary } from 'cloudinary';
+import cloudinary from '../config/cloudinary.js';
 
 const router = express.Router();
 
@@ -219,6 +221,10 @@ router.put('/:spotId/downvote', verifyToken, async (req, res) => {
 router.post('/:id/images', verifyToken, upload.array('images', 5), async (req, res) => {
 
     try {
+
+        // Debug-Statements direkt am Anfang
+        console.log('SpotId:', req.params.id);
+        console.log('Files received:', req.files);
         
         const spot = await Spot.findById(req.params.id)
 
@@ -227,33 +233,55 @@ router.post('/:id/images', verifyToken, upload.array('images', 5), async (req, r
         }
 
         if (!req.files || req.files.length === 0) {
-            return res.status(400).json({ message: 'Kein Bild zum Hochladen angegeben' })            
+            return res.status(400).json({ message: 'Keine Bilder zum Hochladen angegeben' })            
         }
 
-        // Bilder zu Cloudinary hochladen und URLs sammeln
-        const imageUrls = []
-
+        
+        const uploadedUrls = [];
         for (const file of req.files) {
-
-            const result = await cloudinary.uploader.upload(file.path, {
-                folder: 'spots_images'
-            })
-
-            imageUrls.push(result.secure_url)
-
+            const result = await cloudinary.uploader.upload(file.path, { folder: 'spots_images' });
+            uploadedUrls.push(result.secure_url);
         }
+
+        console.log('Cloudinary URLs:', uploadedUrls);
+
+        if (spot.createdBy.toString() === req.user._id.toString()) {
+            spot.ownerImages.push(...uploadedUrls);
+        } else {
+            spot.userImages.push(...uploadedUrls);
+        }
+
+        await spot.save();
+        res.status(200).json({ uploadedUrls });
+
+
+
+
+
+        // // Bilder zu Cloudinary hochladen und URLs sammeln
+        // const uploadedUrls = []
+
+        // for (const file of req.files) {
+
+        //     const result = await cloudinary.uploader.upload(file.path, {
+        //         folder: 'spots_images'
+        //     })
+
+        //     uploadedUrls.push(result.secure_url)
+
+        // }
         
 
-        // Bild zur Spot-Datenbank hinzufügen
-        spot.images.push(...imageUrls)
-        await spot.save()
+        // // Bild zur Spot-Datenbank hinzufügen
+        // spot.images.push(...uploadedUrls)
+        // await spot.save()
 
-        res.status(201).json(spot)
+        // res.status(201).json(spot)
 
     } catch (error) {
         
         console.error(error)
-        res.status(500).json({ message: 'Fehler beim Hochladen des Bildes' })
+        res.status(500).json({ message: 'Fehler beim Hochladen der Bilder' })
 
     }
 

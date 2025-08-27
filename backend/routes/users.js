@@ -52,7 +52,8 @@ router.post('/login', async (req, res) => {
             { expiresIn: '7d' }
 
         );
-
+        
+        
 
         // send token to client
         res.json({ 

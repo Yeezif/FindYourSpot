@@ -1,37 +1,52 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-Future<void> uploadImage(String spotId) async {
-
-  // vars
+Future<List<String>> uploadImages(String spotId, List<XFile> images) async {
+  // Datenbank-URL
   final databaseUrl = dotenv.env['DATABASE_URL'];
-  final uri = Uri.parse('$databaseUrl/api/spots/$spotId/image');
+  final uri = Uri.parse('$databaseUrl/api/spots/$spotId/images');
 
-  // get token
+  // Auth-Token aus SharedPreferences holen
   final prefs = await SharedPreferences.getInstance();
   final token = prefs.getString('authToken');
+  if (token == null) return [];
 
-  // pick image
-  final picker = ImagePicker();
-  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  // Speicherberechtigung prüfen
+  final status = await Permission.storage.request();
+  if (!status.isGranted) return [];
 
-  if (pickedFile != null) {
+  // MultipartRequest erstellen
+  final request = http.MultipartRequest('POST', uri);
+  request.headers['Authorization'] = 'Bearer $token';
 
-    final request = http.MultipartRequest('POST', uri);
-
-    // add image
-    request.files.add(await http.MultipartFile.fromPath('images', pickedFile.path));
-    request.headers['Authorization'] = 'Bearer $token';
-
-    final response = await request.send();
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print('Bild erfolgreich hochgeladen');
-    } else {
-      print('Fehler beim Hochladen des Bildes: ${response.reasonPhrase} (${response.statusCode})');
-    }
+  // Bilder hinzufügen
+  for (var file in images) {
+    request.files.add(await http.MultipartFile.fromPath('images', file.path));
   }
+
+  // Request senden
+  final response = await request.send();
+
+  final respStr = await response.stream.bytesToString();
+  print('Server-Response: $respStr'); // Logging
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    // Body auslesen und URLs zurückgeben
+    // final respStr = await response.stream.bytesToString();
+    // final urls = respStr.isNotEmpty
+    //   ? (jsonDecode(respStr)['imageUrls'] as List<dynamic>).map((e) => e.toString()).toList()
+    //   : <String>[];
+    // return urls;
+
+    final data = jsonDecode(respStr);
+    final urls = (data['uploadedUrls'] as List<dynamic>).map((e) => e.toString()).toList();
+    return urls;
+  }
+  
+  return <String>[];
 }
