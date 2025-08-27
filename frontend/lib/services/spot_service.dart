@@ -21,6 +21,7 @@ class SpotService {
       width: 40,
       height: 40,
       alignment: Alignment.topCenter,
+      rotate: true,
       child: GestureDetector(
         onTap: () {
           

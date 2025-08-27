@@ -9,8 +9,9 @@ const storage = new CloudinaryStorage({
 
     cloudinary: cloudinary,
     params: {
-        folder: 'spots',
-        allowed_formats: ['jpg', 'png', 'jpeg']
+        folder: 'spots_images',
+        allowed_formats: ['jpg', 'png', 'jpeg'],
+        transformation: [{ width: 800, crop: "limit", quality: "auto" }]
     }
 
 })
