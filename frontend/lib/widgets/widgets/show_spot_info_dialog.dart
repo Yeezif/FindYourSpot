@@ -1,10 +1,7 @@
-import 'dart:io';
 import 'package:findyourspot/widgets/widgets/show_preview_dialog.dart';
+import 'package:findyourspot/widgets/widgets/view_images_dialog.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:findyourspot/services/upload_service.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 enum ImageCategory { owner, user }
@@ -16,92 +13,10 @@ ImageCategory selectedCategory = ImageCategory.owner;
 void showSpotInfoDialog(BuildContext context, Map spot) {
   showDialog(
     context: context,
-
-    
     builder: (context) {
       return StatefulBuilder(
         builder: (context, setState) {
-          // Quellen
-          // final ownerImages = List<String>.from(spot['ownerImages'] ?? []);
-          // final userImages = List<String>.from(spot['userImages'] ?? []);
-
-          List<XFile> selectedImages = [];
-
-
-
-          // Widget buildImages() {
-          //   final images = selectedCategory == ImageCategory.owner
-          //       // ? List<String>.from(spot['ownerImages'] ?? [])
-          //       // : List<String>.from(spot['userImages'] ?? []);
-          //       ? spot['ownerImages'] as List<String>
-          //       : spot['userImages'] as List<String>;
-
-          //   // if (images.isEmpty) {
-          //   //   return const Text('Keine Bilder vorhanden');
-          //   // }
-
-          //   return GridView.builder(
-          //     shrinkWrap: true,
-          //     // physics: const NeverScrollableScrollPhysics(),
-          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 3,
-          //       crossAxisSpacing: 4,
-          //       mainAxisSpacing: 4,
-          //     ),
-          //     itemCount: images.length + 1,
-
-          //     itemBuilder: (context, index) {
-          //       if (index == 0) {
-          //         return GestureDetector(
-          //           onTap: () async {
-          //             final picker = ImagePicker();
-          //             final images = await picker.pickMultiImage();
-          //             if (images != null && images.isNotEmpty) {
-          //               showPreviewDialog(context, spot, images);
-          //             }
-          //           },
-          //           child: Container(
-          //             color: Theme.of(context).cardColor,
-          //             child: const Icon(
-          //               Icons.add_a_photo,
-          //               size: 50,
-          //             ),
-          //           ),
-          //         );
-          //       }
-              
-
-          //     final imageIndex = index - 1;
-
-          //     return Image.network(
-          //       images[imageIndex],
-          //       fit: BoxFit.cover,
-          //       loadingBuilder: (context, child, progress) {
-          //         if (progress == null) return child;
-          //         return const Center(child: CircularProgressIndicator());
-          //       },
-          //       errorBuilder: (context, error, stackTrace) {
-          //         return const Icon(Icons.broken_image_outlined);
-          //       },
-          //     );
-          //     },
-
-
-          //     // itemBuilder: (context, index) {
-          //     //   return Image.network(
-          //     //     images[index],
-          //     //     fit: BoxFit.cover,
-          //     //     loadingBuilder: (context, child, progress) {
-          //     //       if (progress == null) return child;
-          //     //       return const Center(child: CircularProgressIndicator());
-          //     //     },
-          //     //     errorBuilder: (context, error, stackTrace) {
-          //     //       return const Icon(Icons.broken_image_outlined);
-          //     //     },
-          //     //   );
-          //     // },
-          //   );
-          // }
+          
           Widget buildImages() {
             final images = selectedCategory == ImageCategory.owner
               ? ((spot['ownerImages'] ?? []) as List<dynamic>).map((e) => e.toString()).toList()
@@ -121,9 +36,9 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                     onTap: () async {
                       final picker = ImagePicker();
                       final images = await picker.pickMultiImage();
-                      if (images != null && images.isNotEmpty) {
+                      if (images.isNotEmpty) {
                         showPreviewDialog(context, spot, images, () {
-                          // State im Main-Dialog aktualisieren
+                          // refresh main dialog state
                           setState(() {});
                         });
                       }
@@ -139,16 +54,26 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                 }
 
                 final imageIndex = index - 1;
-                return Image.network(
-                  images[imageIndex],
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
-                    return const Center(child: CircularProgressIndicator());
+
+                return GestureDetector(
+                  onTap:() {
+                    
+
+                    viewImagesDialog(context, spot, images, index - 1);
+                    
                   },
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.broken_image_outlined);
-                  },
+
+                  child: Image.network(
+                    images[imageIndex],
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, progress) {
+                      if (progress == null) return child;
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(Icons.broken_image_outlined);
+                    },
+                  ),
                 );
               },
             );

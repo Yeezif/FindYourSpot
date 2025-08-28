@@ -135,6 +135,7 @@
 // }
 
 
+import 'package:findyourspot/pages/settings_categories/settings_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:findyourspot/services/upload_service.dart';
@@ -165,11 +166,23 @@ class _PreviewDialogState extends State<PreviewDialog> {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: FractionallySizedBox(
-        widthFactor: 0.9,
-        heightFactor: 0.7,
+        widthFactor: 1,
+        heightFactor: 0.8,
         child: Column(
           children: [
+
             Expanded(
+              child: Center(
+                child: Text(
+                  'Selected Images', 
+                  style: Theme.of(context).textTheme.headlineMedium
+                ),
+              )
+            ),
+
+
+            Expanded(
+              flex: 6,
               child: GridView.builder(
                 padding: const EdgeInsets.all(8),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -186,50 +199,54 @@ class _PreviewDialogState extends State<PreviewDialog> {
                 },
               ),
             ),
+
             if (isUploading) const LinearProgressIndicator(),
-            ElevatedButton(
-              onPressed: isUploading
-                  ? null
-                  : () async {
-                      setState(() => isUploading = true);
 
-                      print('Upload-Button wurde gedrückt');
+            Expanded(
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: isUploading
+                      ? null
+                      : () async {
+                          setState(() => isUploading = true);
 
-                      final prefs = await SharedPreferences.getInstance();
-                      final currentUserId = prefs.getString('id');
-                      print('Aktuelle User-ID: $currentUserId');
 
-                      final uploadedUrls =
-                          await uploadImages(widget.spot['_id'], widget.pickedFiles);
+                          final prefs = await SharedPreferences.getInstance();
+                          final currentUserId = prefs.getString('id');
 
-                      print('Die folgenden URLs wurden hochgeladen: $uploadedUrls');
+                          final uploadedUrls =
+                              await uploadImages(widget.spot['_id'], widget.pickedFiles);
 
-                      if (!mounted) return;
 
-                      setState(() {
-                        if (widget.spot['createdBy'] == currentUserId) {
-                          widget.spot['ownerImages'] = [
-                            ...(widget.spot['ownerImages'] ?? []),
-                            ...uploadedUrls
-                          ];
-                        } else {
-                          widget.spot['userImages'] = [
-                            ...(widget.spot['userImages'] ?? []),
-                            ...uploadedUrls
-                          ];
-                        }
-                        isUploading = false;
-                      });
+                          if (!mounted) return;
 
-                      print('Spot wurde lokal aktualisiert');
+                          setState(() {
+                            if (widget.spot['createdBy'] == currentUserId) {
+                              widget.spot['ownerImages'] = [
+                                ...(widget.spot['ownerImages'] ?? []),
+                                ...uploadedUrls
+                              ];
+                            } else {
+                              widget.spot['userImages'] = [
+                                ...(widget.spot['userImages'] ?? []),
+                                ...uploadedUrls
+                              ];
+                            }
+                            isUploading = false;
+                          });
 
-                      widget.refreshMainDialog();
-                      print('Main-Dialog wird neu gerendert');
 
-                      Navigator.of(context).pop();
-                    },
-              child: const Text('Upload'),
-            ),
+                          widget.refreshMainDialog();
+
+                          Navigator.of(context).pop();
+                        },
+                  child: const Text('Upload'),
+                ),
+              )
+            )
+            
+            
+
           ],
         ),
       ),
