@@ -1,4 +1,4 @@
-import 'package:findyourspot/widgets/widgets/create_spot_dialog.dart';
+import 'package:findyourspot/widgets/dialogs/create_spot_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 

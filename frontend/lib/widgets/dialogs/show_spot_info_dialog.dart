@@ -1,5 +1,5 @@
-import 'package:findyourspot/widgets/widgets/show_preview_dialog.dart';
-import 'package:findyourspot/widgets/widgets/view_images_dialog.dart';
+import 'package:findyourspot/widgets/dialogs/show_preview_dialog.dart';
+import 'package:findyourspot/widgets/dialogs/view_images_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 
