@@ -27,6 +27,9 @@ final ThemeData lightTheme = ThemeData(
       textPrimary: AppColorsLight.textPrimary,
       backgroundPrimary: AppColorsLight.backgroundPrimary,
       backgroundSecondary: AppColorsLight.backgroundSecondary,
+      successMessage: AppColorsLight.accentGreen,
+      errorMessage: AppColorsLight.accentRed,
+      infoMessage: AppColorsLight.accentBlue,
     ),
   ],
 
@@ -157,6 +160,9 @@ final ThemeData darkTheme = ThemeData(
       textPrimary: AppColorsDark.textPrimary,
       backgroundPrimary: AppColorsDark.backgroundPrimary,
       backgroundSecondary: AppColorsDark.backgroundSecondary,
+      successMessage: AppColorsDark.accentGreen,
+      errorMessage: AppColorsDark.accentRed,
+      infoMessage: AppColorsDark.accentBlue,
     ),
   ],
 

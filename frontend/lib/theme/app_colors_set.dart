@@ -1,3 +1,4 @@
+import 'package:findyourspot/widgets/messages/messages.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -8,6 +9,9 @@ class AppColorSet extends ThemeExtension<AppColorSet> {
   final Color textPrimary;
   final Color backgroundPrimary;
   final Color backgroundSecondary;
+  final Color successMessage;
+  final Color errorMessage;
+  final Color infoMessage;
   // Füge hier weitere Farben bei Bedarf hinzu
 
   const AppColorSet({
@@ -17,6 +21,9 @@ class AppColorSet extends ThemeExtension<AppColorSet> {
     required this.textPrimary,
     required this.backgroundPrimary,
     required this.backgroundSecondary,
+    required this.successMessage,
+    required this.errorMessage,
+    required this.infoMessage,
   });
 
   @override
@@ -27,6 +34,9 @@ class AppColorSet extends ThemeExtension<AppColorSet> {
     Color? textPrimary,
     Color? backgroundPrimary,
     Color? backgroundSecondary,
+    Color? successMessage,
+    Color? errorMessage,
+    Color? infoMessage,
   }) {
     return AppColorSet(
       icon: icon ?? this.icon,
@@ -35,6 +45,9 @@ class AppColorSet extends ThemeExtension<AppColorSet> {
       textPrimary: textPrimary ?? this.textPrimary,
       backgroundPrimary: backgroundPrimary ?? this.backgroundPrimary,
       backgroundSecondary: backgroundSecondary ?? this.backgroundSecondary,
+      successMessage: successMessage ?? this.successMessage,
+      errorMessage: errorMessage ?? this.errorMessage,
+      infoMessage: infoMessage ?? this.infoMessage,
     );
   }
 
@@ -48,6 +61,9 @@ class AppColorSet extends ThemeExtension<AppColorSet> {
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       backgroundPrimary: Color.lerp(backgroundPrimary, other.backgroundPrimary, t)!,
       backgroundSecondary: Color.lerp(backgroundSecondary, other.backgroundSecondary, t)!,
+      successMessage: Color.lerp(successMessage, other.successMessage, t)!,
+      errorMessage: Color.lerp(errorMessage, other.errorMessage, t)!,
+      infoMessage: Color.lerp(infoMessage, other.infoMessage, t)!,
     );
   }
 }

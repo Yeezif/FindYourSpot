@@ -28,6 +28,7 @@ class AppColorsLight {
   static const Color accentGreen = Color(0xFF43A047); // sattes Grün
   static const Color accentYellow = Color(0xFFFFC107); // warmes, helles Gelb
   static const Color accentCyan = Color(0xFF00ACC1); // schönes Türkis
+  static const Color accentRed = Color(0xFFE53935); // kräftiges, tiefes Rot
 
   // optional - light hover variants
   static const Color hoverBlue = Color(0xFF90CAF9); // light blue[300]
@@ -63,6 +64,7 @@ class AppColorsDark {
   static const Color accentGreen = Color(0xffa6e3a1);
   static const Color accentYellow = Color(0xfff9e2af);
   static const Color accentCyan = Color(0xff94e2d5);
+  static const Color accentRed = Color(0xffef9a9a);
 
 
 

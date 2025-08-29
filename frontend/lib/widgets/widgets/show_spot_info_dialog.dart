@@ -36,8 +36,9 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                     onTap: () async {
                       final picker = ImagePicker();
                       final images = await picker.pickMultiImage();
+                      if (!context.mounted) return;
                       if (images.isNotEmpty) {
-
+                        
                         showPreviewDialog(context, spot, images, () {
                           // refresh main dialog state
                           setState(() {});
