@@ -32,16 +32,9 @@ Future<List<String>> uploadImages(String spotId, List<XFile> images) async {
   final response = await request.send();
 
   final respStr = await response.stream.bytesToString();
-  print('Server-Response: $respStr'); // Logging
 
   if (response.statusCode == 200 || response.statusCode == 201) {
-    // Body auslesen und URLs zurückgeben
-    // final respStr = await response.stream.bytesToString();
-    // final urls = respStr.isNotEmpty
-    //   ? (jsonDecode(respStr)['imageUrls'] as List<dynamic>).map((e) => e.toString()).toList()
-    //   : <String>[];
     // return urls;
-
     final data = jsonDecode(respStr);
     final urls = (data['uploadedUrls'] as List<dynamic>).map((e) => e.toString()).toList();
     return urls;

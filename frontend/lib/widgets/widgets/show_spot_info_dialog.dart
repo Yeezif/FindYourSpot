@@ -37,6 +37,7 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                       final picker = ImagePicker();
                       final images = await picker.pickMultiImage();
                       if (images.isNotEmpty) {
+                        
                         showPreviewDialog(context, spot, images, () {
                           // refresh main dialog state
                           setState(() {});
@@ -58,9 +59,8 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                 return GestureDetector(
                   onTap:() {
                     
-
                     viewImagesDialog(context, spot, images, index - 1);
-                    
+                  
                   },
 
                   child: Image.network(

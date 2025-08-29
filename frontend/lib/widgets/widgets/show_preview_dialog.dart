@@ -192,12 +192,53 @@ class _PreviewDialogState extends State<PreviewDialog> {
                 ),
                 itemCount: widget.pickedFiles.length,
                 itemBuilder: (context, index) {
-                  return Image.file(
-                    File(widget.pickedFiles[index].path),
-                    fit: BoxFit.cover,
+                  return Draggable(
+
+                    data:  index,
+
+                    feedback: Opacity(
+                      opacity: 0.75, 
+                      child: SizedBox.fromSize(
+                        size: const Size(100, 100), 
+                        child: Image.file(
+                          File(widget.pickedFiles[index].path), 
+                          fit: BoxFit.cover
+                        )
+                      ),
+                    ),
+
+                    childWhenDragging: SizedBox.fromSize(size: const Size(100, 100), child: Container()),
+
+                    child: Image.file(
+                      File(widget.pickedFiles[index].path),
+                      fit: BoxFit.cover,
+                    ),
+
+
                   );
                 },
               ),
+            ),
+
+            DragTarget(
+              builder:(context, candidateData, rejectedData) {
+                final isActive = candidateData.isNotEmpty;
+                return SizedBox.fromSize(
+                  size: const Size(76, 76),
+                  child: Icon(
+                    Icons.delete_forever_rounded,
+                    size: isActive ? 72 : 50,
+                    color: isActive ? Colors.red : Theme.of(context).iconTheme.color
+                  )
+                );
+              },
+
+              onAcceptWithDetails: (details) {
+                final index = details.data as int;
+                setState(() {
+                  widget.pickedFiles.removeAt(index);
+                });
+              },
             ),
 
             if (isUploading) const LinearProgressIndicator(),
