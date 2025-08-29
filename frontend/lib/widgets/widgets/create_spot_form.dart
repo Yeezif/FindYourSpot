@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:findyourspot/widgets/messages/messages.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:findyourspot/widgets/dialogs/location_picker_dialog.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateSpotForm extends StatefulWidget {
   final LatLng location;
@@ -33,6 +35,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
   final _lngController = TextEditingController();
 
   bool _isSaving = false;
+  List<XFile> _pickedFiles = [];
 
 
 
@@ -42,6 +45,57 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
     _latController.text = widget.location.latitude.toString();
     _lngController.text = widget.location.longitude.toString();
+  }
+
+
+  Widget buildPickedImagesGrid() {
+    return Expanded(
+      child: GridView.builder(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(8),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 4,
+          mainAxisSpacing: 4,
+        ),
+        itemCount: _pickedFiles.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            // "Add Image"-Button
+            return GestureDetector(
+              onTap: () async {
+                final picker = ImagePicker();
+                final images = await picker.pickMultiImage();
+                if (!mounted) return;
+                if (images.isNotEmpty) {
+                  setState(() {
+                    _pickedFiles.addAll(images);
+                  });
+                }
+              },
+              child: Container(
+                color: Theme.of(context).cardColor,
+                child: const Icon(Icons.add_a_photo, size: 50),
+              ),
+            );
+          }
+
+          final imageIndex = index - 1;
+          return GestureDetector(
+            onTap: () {
+              // Optional: Großansicht oder Drag/Remove-Funktion
+              // TODO: implement
+              
+
+            },
+            child: Image.file(
+              File(_pickedFiles[imageIndex].path),
+              fit: BoxFit.cover,
+            ),
+          );
+        },
+      )
+    );
   }
 
 
@@ -59,7 +113,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
           Text(
             'Neuen Spot erstellen',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headlineSmall
           ),
 
           const SizedBox(height: 12),
@@ -131,7 +185,10 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
           SizedBox(height: 20),
 
-          Spacer(),
+          buildPickedImagesGrid(),
+
+          SizedBox(height: 20),
+
 
           ElevatedButton(
             onPressed: _isSaving
@@ -153,7 +210,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
 
 
-
+// save spot helper
   Future<void> _saveSpot() async {
 
     final spot = {
