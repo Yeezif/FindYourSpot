@@ -37,7 +37,7 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
                       final picker = ImagePicker();
                       final images = await picker.pickMultiImage();
                       if (images.isNotEmpty) {
-                        
+
                         showPreviewDialog(context, spot, images, () {
                           // refresh main dialog state
                           setState(() {});
@@ -82,7 +82,7 @@ void showSpotInfoDialog(BuildContext context, Map spot) {
 
 
           return Dialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
             child: FractionallySizedBox(
               widthFactor: 1,
               heightFactor: 0.8,

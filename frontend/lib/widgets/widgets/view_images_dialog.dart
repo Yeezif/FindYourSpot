@@ -29,7 +29,7 @@ class _ImagesDialogState extends State<ImagesDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       child: FractionallySizedBox(
         widthFactor: 1,
         heightFactor: 0.8,

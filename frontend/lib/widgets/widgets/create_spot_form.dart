@@ -50,7 +50,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
     return Form(
       key: _formKey,
       child: Column(
-        mainAxisSize: MainAxisSize.min, // Höhe passt sich Inhalt an
+        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         
         children: [
@@ -130,6 +130,8 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
           SizedBox(height: 20),
 
+          Spacer(),
+
           ElevatedButton(
             onPressed: _isSaving
                 ? null
@@ -182,6 +184,8 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
         body: jsonEncode(spot),
       );
 
+      if (!mounted) return;
+
       if (response.statusCode == 201) {
         
         // TODO: Success Message
@@ -202,8 +206,11 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
       }
 
     } catch (e) {
-
+      
       debugPrint('HTTP Fehler: $e');
+      
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Verbindungsfehler: $e'))
       );
@@ -255,73 +262,75 @@ class _LocationPickerDialogState extends State<_LocationPickerDialog> {
 
     final String apiKey = dotenv.env['MAPTILER_API_KEY'] ?? '';
 
-    return AlertDialog(
+    return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      contentPadding: EdgeInsets.zero,
-      content: SizedBox(
+      child: FractionallySizedBox(
+        widthFactor: 1,
+        heightFactor: 0.8,
         
-        width: 350,
-        height: 400,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(40),
-          child: FlutterMap(
+        child: Column(
+          children: [
 
-            options: MapOptions(
-              initialCenter: _pickedLocation,
-              initialZoom: 15,
-              onTap: (tapPos, point) {
-                setState(() => _pickedLocation = point);
-              },
+            // Map
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: FlutterMap(
+                  options: MapOptions(
+                    initialCenter: _pickedLocation,
+                    initialZoom: 15,
+                    onTap: (tapPos, point) {
+                      setState(() => _pickedLocation = point);
+                    },
+                  ),
+                  children: [
+                    TileLayer(urlTemplate: 'https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=$apiKey'),
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: _pickedLocation,
+                          width: 40,
+                          height: 40,
+                          child: const Icon(Icons.location_pin, color: Colors.red, size: 40),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
 
-            children: [
+            // Buttons
+            Padding(
+              padding: EdgeInsets.all(10),
 
-              TileLayer(
-                // TODO: MapStyles global verwalten
-                urlTemplate: 'https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=$apiKey',
-              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
 
-              MarkerLayer(
-                markers: [
-                  Marker(
-                    point: _pickedLocation,
-                    width: 40,
-                    height: 40,
-                    alignment: Alignment.topCenter,
-                    child: const Icon(Icons.location_pin, color: Colors.red, size: 40),
+                  
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Abbrechen'),
                   ),
+                  
+
+                  const SizedBox(width: 8),
+
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context, _pickedLocation),
+                    child: const Text('Speichern'),
+                  ),
+
                 ],
               ),
+            )
 
-            ],
-
-          ),
-        )
-        
+          ],
+        ),
         
       ),
-
-      actions: [
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Abbrechen')
-            ),
-
-            SizedBox(width: 8),
-
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context, _pickedLocation),
-              child: const Text('Speichern'),
-            ),
-          ]
-        )
-      ],
-
-    );  
+    );
   }
 
 }

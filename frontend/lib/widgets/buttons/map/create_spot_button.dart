@@ -1,4 +1,4 @@
-import 'package:findyourspot/widgets/widgets/create_spot_form.dart';
+import 'package:findyourspot/widgets/widgets/create_spot_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -25,24 +25,12 @@ class CreateSpotButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => Center(
-              child: SingleChildScrollView(
-                child: Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  insetPadding: EdgeInsets.symmetric(horizontal: 40, vertical: 24),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: SizedBox(
-                      width: 350, // Breite des Pop-Ups
-                      child: CreateSpotForm(
-                        location: location,
-                        onSpotCreated: onSpotCreated,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              
+              child: CreateSpotDialog(
+                location: location, 
+                onSpotCreated: onSpotCreated
+              )
+              
             ),
           );
         },
