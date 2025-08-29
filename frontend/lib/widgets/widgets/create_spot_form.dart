@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:findyourspot/widgets/messages/messages.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:findyourspot/widgets/dialogs/location_picker_dialog.dart';
 
 class CreateSpotForm extends StatefulWidget {
   final LatLng location;
@@ -111,7 +111,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
                 final picked = await showDialog<LatLng>(
                   context: context,
-                  builder: (context) => _LocationPickerDialog(
+                  builder: (context) => LocationPickerDialog(
                     initialLocation: LatLng(
                       double.tryParse(_latController.text) ?? widget.location.latitude,
                       double.tryParse(_lngController.text) ?? widget.location.longitude,
@@ -214,120 +214,4 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
     }
 
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// LOCATION PICKER DIALOG
-
-class _LocationPickerDialog extends StatefulWidget {
-  
-  final LatLng initialLocation;
-
-  const _LocationPickerDialog({
-    required this.initialLocation,
-  });
-
-  @override
-  State<_LocationPickerDialog> createState() => _LocationPickerDialogState();
-
-}
-
-class _LocationPickerDialogState extends State<_LocationPickerDialog> {
-
-  late LatLng _pickedLocation;
-
-  @override
-  void initState() {
-    super.initState();
-    _pickedLocation = widget.initialLocation;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    final String apiKey = dotenv.env['MAPTILER_API_KEY'] ?? '';
-
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      child: FractionallySizedBox(
-        widthFactor: 1,
-        heightFactor: 0.8,
-        
-        child: Column(
-          children: [
-
-            // Map
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: FlutterMap(
-                  options: MapOptions(
-                    initialCenter: _pickedLocation,
-                    initialZoom: 15,
-                    onTap: (tapPos, point) {
-                      setState(() => _pickedLocation = point);
-                    },
-                  ),
-                  children: [
-                    TileLayer(urlTemplate: 'https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=$apiKey'),
-                    MarkerLayer(
-                      markers: [
-                        Marker(
-                          point: _pickedLocation,
-                          width: 40,
-                          height: 40,
-                          child: const Icon(Icons.location_pin, color: Colors.red, size: 40),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Buttons
-            Padding(
-              padding: EdgeInsets.all(10),
-
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Abbrechen'),
-                  ),
-                  
-
-                  const SizedBox(width: 8),
-
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context, _pickedLocation),
-                    child: const Text('Speichern'),
-                  ),
-
-                ],
-              ),
-            )
-
-          ],
-        ),
-        
-      ),
-    );
-  }
-
 }
