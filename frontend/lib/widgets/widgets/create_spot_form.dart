@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:findyourspot/widgets/messages/messages.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -142,7 +143,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
                     }
                   },
             child: _isSaving
-                ? CircularProgressIndicator(color: const Color(0xFF546E7A))
+                ? CircularProgressIndicator()
                 : Text('Spot erstellen'),
           ),
         ],
@@ -188,7 +189,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
       if (response.statusCode == 201) {
         
-        // TODO: Success Message
+        SuccessMessage.show(context, 'Spot erfolgreich erstellt');
 
         final createdSpot = jsonDecode(response.body);
         widget.onSpotCreated(createdSpot);
@@ -199,21 +200,17 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
         debugPrint('Fehler beim Erstellen: ${response.statusCode}');
         debugPrint(response.body);
         
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Fehler: ${response.statusCode}'))
-        );
+        ErrorMessage.show(context, 'Fehler: ${response.statusCode}');
 
       }
 
     } catch (e) {
       
       debugPrint('HTTP Fehler: $e');
-      
+
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Verbindungsfehler: $e'))
-      );
+      ErrorMessage.show(context, 'Verbindungsfehler: $e');
     }
 
   }
