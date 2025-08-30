@@ -69,7 +69,7 @@ class _PreviewDialogState extends State<PreviewDialog> {
                       ),
                     ),
 
-                    childWhenDragging: SizedBox.fromSize(size: const Size(100, 100), child: Container()),
+                    childWhenDragging: SizedBox.fromSize(size: const Size(100, 100)),
 
                     child: Image.file(
                       File(widget.pickedFiles[index].path),
@@ -86,7 +86,7 @@ class _PreviewDialogState extends State<PreviewDialog> {
               builder:(context, candidateData, rejectedData) {
                 final isActive = candidateData.isNotEmpty;
                 return SizedBox.fromSize(
-                  size: const Size(76, 76),
+                  size: const Size(100, 100),
                   child: Icon(
                     Icons.delete_forever_rounded,
                     size: isActive ? 72 : 50,
@@ -115,12 +115,10 @@ class _PreviewDialogState extends State<PreviewDialog> {
 
 
                           final prefs = await SharedPreferences.getInstance();
+                          if (!mounted) return;
                           final currentUserId = prefs.getString('id');
 
-                          final uploadedUrls =
-                              await uploadImages(widget.spot['_id'], widget.pickedFiles);
-
-
+                          final uploadedUrls = await uploadImages(widget.spot['_id'], widget.pickedFiles);
                           if (!mounted) return;
 
                           setState(() {

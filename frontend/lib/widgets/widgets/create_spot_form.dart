@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:findyourspot/widgets/dialogs/local_images_dialog.dart';
+import 'package:findyourspot/widgets/dialogs/view_images_dialog.dart';
 import 'package:findyourspot/widgets/messages/messages.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -36,6 +38,7 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
 
   bool _isSaving = false;
   List<XFile> _pickedFiles = [];
+  bool _isDragging = false;
 
 
 
@@ -73,25 +76,65 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
                   });
                 }
               },
-              child: Container(
-                color: Theme.of(context).cardColor,
-                child: const Icon(Icons.add_a_photo, size: 50),
+              child: DragTarget(
+                builder: (context, candidateData, rejectedData) {
+                  final isActive = candidateData.isNotEmpty;
+                  return SizedBox.fromSize(
+                    size: const Size(100, 100),
+                    child: _isDragging
+                        ? Icon(
+                            Icons.delete_forever_rounded,
+                            size: isActive ? 72 : 50,
+                            color: isActive ? Colors.red : Theme.of(context).iconTheme.color,
+                          )
+                        : const Icon(
+                            Icons.add_a_photo_rounded,
+                            size: 50,
+                            color: Colors.grey,
+                          ),
+                    
+                  );
+                },
+                onAcceptWithDetails: (details) {
+                final index = details.data as int;
+                setState(() {
+                  _pickedFiles.removeAt(index);
+                });
+              },
               ),
             );
-          }
-
+          } 
+        
+        
           final imageIndex = index - 1;
-          return GestureDetector(
-            onTap: () {
-              // Optional: Großansicht oder Drag/Remove-Funktion
-              // TODO: implement
-              
+          return Draggable(
+            data: imageIndex,
 
-            },
-            child: Image.file(
-              File(_pickedFiles[imageIndex].path),
-              fit: BoxFit.cover,
+            feedback: Opacity(
+              opacity: 0.75, 
+              child: SizedBox.fromSize(
+                size: const Size(100, 100), 
+                child: Image.file(
+                  File(_pickedFiles[imageIndex].path), 
+                  fit: BoxFit.cover
+                )
+              ),
             ),
+
+            onDragStarted: () => setState(() => _isDragging = true),
+            onDragEnd: (details) => setState(() => _isDragging = false),
+
+            childWhenDragging: SizedBox.fromSize(size: const Size(100, 100)),
+
+            child: GestureDetector(
+              onTap: () {
+                viewLocalImagesDialog(context, _pickedFiles, index - 1);
+              },
+              child: Image.file(
+                File(_pickedFiles[imageIndex].path),
+                fit: BoxFit.cover,
+            ),
+            )
           );
         },
       )
