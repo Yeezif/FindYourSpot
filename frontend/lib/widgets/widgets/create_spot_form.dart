@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:findyourspot/widgets/dialogs/local_images_dialog.dart';
-import 'package:findyourspot/widgets/dialogs/view_images_dialog.dart';
 import 'package:findyourspot/widgets/messages/messages.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
