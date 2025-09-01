@@ -14,7 +14,8 @@ const emailTokenSchema = new mongoose.Schema({
     },
     expiresAt: {
         type: Date,
-        required: true
+        required: true,
+        index: { expires: 0 }
     }
 });
 

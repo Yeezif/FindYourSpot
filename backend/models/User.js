@@ -39,6 +39,11 @@ const userSchema = new mongoose.Schema({
         default: false
     },
 
+    collections: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Collection",
+    }]
+
 })
 
 // Password Hash before save
