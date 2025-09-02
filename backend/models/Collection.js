@@ -9,17 +9,22 @@ const collectionSchema = new mongoose.Schema({
         required: true
     },
 
+    description: {
+        type: String,
+    },
+
     spots: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Spot",
+        ref: 'Spot',
         addedAt: {
             type: Date,
             default: Date.now,
         }
     }],
 
-    owner: {
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
     },
 
@@ -28,4 +33,6 @@ const collectionSchema = new mongoose.Schema({
         default: Date.now,
     },
 
-})
+});
+
+export default mongoose.model('Collection', collectionSchema);
