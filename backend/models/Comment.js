@@ -1,7 +1,6 @@
 // models/Comment.js
 
 import mongoose from 'mongoose'
-import Spot from './Spot.js'
 
 const commentSchema = new mongoose.Schema({
 
