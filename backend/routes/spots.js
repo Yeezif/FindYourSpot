@@ -4,7 +4,7 @@ import express from 'express';
 import Spot from '../models/Spot.js';
 import verifyToken from '../middleware/verifyToken.js';
 import isAdmin from '../middleware/isAdmin.js';
-import isOwnerOrAdmin from '../middleware/isOwnerorAdmin.js';
+import isSpotOwnerOrAdmin from '../middleware/isSpotOwnerOrAdmin.js';
 // import { verify } from 'jsonwebtoken';
 import { validateFields } from '../middleware/validateFields.js';
 import upload from '../middleware/upload.js';
@@ -65,7 +65,7 @@ router.get('/:id', async (req, res) => {
 
 
 // DELETE /api/spots/:id - Spot löschen
-router.delete('/:id', verifyToken, isOwnerOrAdmin, async (req, res) => {
+router.delete('/:id', verifyToken, isSpotOwnerOrAdmin, async (req, res) => {
   
     try {
       
@@ -90,7 +90,7 @@ router.delete('/:id', verifyToken, isOwnerOrAdmin, async (req, res) => {
 
 
 // PUT /api/spots/:id - Spot bearbeiten
-router.put('/:id', verifyToken, isOwnerOrAdmin, validateFields(['title', 'location']), async (req, res) => {
+router.put('/:id', verifyToken, isSpotOwnerOrAdmin, validateFields(['title', 'location']), async (req, res) => {
   
     try {
       

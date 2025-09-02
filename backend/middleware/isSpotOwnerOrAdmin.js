@@ -1,8 +1,8 @@
-// middleware/isOwnerOrAdminSpot.js
+// middleware/isSpotOwnerOrAdmin.js
 
 import Spot from '../models/Spot.js'
 
-const isOwnerOrAdmin = async (req, res, next) => {
+const isSpotOwnerOrAdmin = async (req, res, next) => {
     
     try {
         
@@ -27,4 +27,4 @@ const isOwnerOrAdmin = async (req, res, next) => {
 
 }
 
-export default isOwnerOrAdmin
+export default isSpotOwnerOrAdmin;

@@ -3,7 +3,7 @@
 import express from 'express'
 import Comment from '../models/Comment.js'
 import verifyToken from '../middleware/verifyToken.js'
-import isOwnerOrAdmin from '../middleware/isOwnerorAdmin.js'
+import isSpotOwnerOrAdmin from '../middleware/isSpotOwnerOrAdmin.js'
 
 const router = express.Router()
 
@@ -54,7 +54,7 @@ router.post('/:spotId/comments', verifyToken, async (req, res) => {
 
 
 // PUT /api/comments/:commentId - Kommentar bearbeiten
-router.put('/:commentId', verifyToken, isOwnerOrAdmin, async (req, res) => {
+router.put('/:commentId', verifyToken, isSpotOwnerOrAdmin, async (req, res) => {
     
     try {
         
@@ -85,7 +85,7 @@ router.put('/:commentId', verifyToken, isOwnerOrAdmin, async (req, res) => {
 
 
 // DELETE /api/comments/:commentId - Kommentar löschen
-router.delete('/:commentId', verifyToken, isOwnerOrAdmin, async (req, res) => {
+router.delete('/:commentId', verifyToken, Spot, async (req, res) => {
 
     try {
         

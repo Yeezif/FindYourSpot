@@ -1,8 +1,8 @@
-// middleware/isOwnerOrAdminCollection.js
+// middleware/isCollectionOwnerOrAdmin.js
 
 import Collection from '../models/Collection.js';
 
-const isOwnerOrAdminCollection = async (req, res, next) => {
+const isCollectionOwnerOrAdmin = async (req, res, next) => {
 
     try {
         
@@ -27,4 +27,4 @@ const isOwnerOrAdminCollection = async (req, res, next) => {
 
 }
 
-export default isOwnerOrAdminCollection;
+export default isCollectionOwnerOrAdmin;
