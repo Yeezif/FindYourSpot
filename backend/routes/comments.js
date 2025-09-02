@@ -85,7 +85,7 @@ router.put('/:commentId', verifyToken, isSpotOwnerOrAdmin, async (req, res) => {
 
 
 // DELETE /api/comments/:commentId - Kommentar löschen
-router.delete('/:commentId', verifyToken, Spot, async (req, res) => {
+router.delete('/:commentId', verifyToken, isSpotOwnerOrAdmin, async (req, res) => {
 
     try {
         

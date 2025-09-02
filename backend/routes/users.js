@@ -6,6 +6,7 @@ import crypto from 'crypto';
 import User from '../models/User.js';
 import EmailToken from '../models/EmailToken.js';
 import transporter from '../middleware/mailer.js';
+import verifyToken from '../middleware/verifyToken.js';
 
 const router = express.Router();
 

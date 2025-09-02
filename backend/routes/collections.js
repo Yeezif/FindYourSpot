@@ -187,3 +187,5 @@ router.delete('/:collectionId/spots/:spotId', verifyToken, isCollectionOwnerOrAd
     }
 
 });
+
+export default router
