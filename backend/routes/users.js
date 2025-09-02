@@ -341,4 +341,19 @@ router.get('/verify', async (req, res) => {
 });
 
 
+
+
+// GET COLLECTIONS BY USER
+
+// GET /api/users/:userId/collections
+router.get('/:userId/collections', verifyToken, async (req, res) => {
+
+    const { userId } = req.params;
+    const collections = await User.findById(userId).populate('collections');
+
+    res.json(collections);
+
+});
+
+
 export default router
