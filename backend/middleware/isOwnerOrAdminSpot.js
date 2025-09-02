@@ -1,4 +1,4 @@
-// middleware/isOwnerOrAdmin.js
+// middleware/isOwnerOrAdminSpot.js
 
 import Spot from '../models/Spot.js'
 
