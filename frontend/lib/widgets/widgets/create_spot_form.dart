@@ -35,8 +35,9 @@ class _CreateSpotFormState extends State<CreateSpotForm> {
   final _latController = TextEditingController();
   final _lngController = TextEditingController();
 
+  final List<XFile> _pickedFiles = [];
+
   bool _isSaving = false;
-  List<XFile> _pickedFiles = [];
   bool _isDragging = false;
 
 

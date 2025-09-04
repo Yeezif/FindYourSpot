@@ -2,6 +2,24 @@
 
 import mongoose from 'mongoose';
 
+// helper spot schema
+const spotRefSchema = new mongoose.Schema({
+
+    spot: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Spot',
+        required: true
+    },
+
+    addedAt: {
+        type: Date,
+        default: Date.now,
+    },
+
+});
+
+
+// collection schema
 const collectionSchema = new mongoose.Schema({
 
     title: {
@@ -13,14 +31,7 @@ const collectionSchema = new mongoose.Schema({
         type: String,
     },
 
-    spots: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Spot',
-        addedAt: {
-            type: Date,
-            default: Date.now,
-        }
-    }],
+    spots: [spotRefSchema],
 
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,

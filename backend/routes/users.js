@@ -349,10 +349,25 @@ router.get('/verify', async (req, res) => {
 // GET /api/users/:userId/collections
 router.get('/:userId/collections', verifyToken, async (req, res) => {
 
-    const { userId } = req.params;
-    const collections = await User.findById(userId).populate('collections');
+    try {
+        
+        const { userId } = req.params;
 
-    res.json(collections);
+        const collections = await Collection.find({ createdBy: userId })
+            .populate({
+                path: 'spots.spot',
+                select: 'title description location',
+            })
+            .populate('createdBy', 'username');
+
+        res.json(collections);
+
+    } catch (error) {
+        
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+
+    }
 
 });
 

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/collection.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ApiService {
@@ -87,9 +86,8 @@ class ApiService {
     
     if (response.statusCode == 200) {
 
-      final List data = json.decode(response.body);
-      // return data.map((collection) => Collection.fromJson(collection)).toList();
-      return Collection.fromJson(data[0]);
+      final data = json.decode(response.body);
+      return Collection.fromJson(data);
 
     } else {
 
@@ -138,7 +136,7 @@ class ApiService {
   // ADD SPOT TO COLLECTION
 
   // PUT /api/collections/:collectionId
-  Future<void> addSpotToCollection(String collectionId, String spotId) async {
+  Future<Collection> addSpotToCollection(String collectionId, String spotId) async {
 
     final response = await http.put(
       Uri.parse('$baseUrl/collections/$collectionId'),
@@ -146,10 +144,17 @@ class ApiService {
       body: jsonEncode({'spotId': spotId}),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to add spot to collection: ${response.body}');
-    }
+    if (response.statusCode == 200) {
 
+      final data = json.decode(response.body);
+      return Collection.fromJson(data);
+
+    } else {
+
+      throw Exception('Failed to add spot to collection ${response.body}');
+
+    }
+    
   }
 
 

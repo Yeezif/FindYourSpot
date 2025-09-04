@@ -44,7 +44,13 @@ router.get('/', verifyToken, async (req, res) => {
     
     try {
         
-        const collections = await Collection.find({ createdBy: req.user._id });
+        const collections = await Collection.find({ createdBy: req.user._id })
+            .populate({
+                path: 'spots.spot',
+                select: 'title description location',
+            })
+            .populate('createdBy', 'username');
+
         res.json(collections);
 
     } catch (error) {
@@ -74,8 +80,11 @@ router.get('/:collectionId', verifyToken, async (req, res) => {
         
         const { collectionId } = req.params;
         const collection = await Collection.findById(collectionId)
-                            .populate('spots')
-                            .populate('createdBy', 'username');
+            .populate({
+                path: 'spots.spot',
+                select: 'title description location',
+            })
+            .populate('createdBy', 'username');
 
         if (!collection) {
             return res.status(404).json({ error: 'Collection not found' });
@@ -110,8 +119,12 @@ router.put('/:collectionId', verifyToken, isCollectionOwnerOrAdmin, async (req, 
             return res.status(404).json({ error: 'Collection not found' });
         }
 
-        if (!collection.spots.includes(spotId)) {
-            collection.spots.push(spotId);
+        const exists = collection.spots.some(
+            (s) => s.spot.toString() === spotId
+        );
+
+        if (!exists) {
+            collection.spots.push({ spot: spotId });
 
             await collection.save();
             return res.json(collection);
@@ -171,10 +184,15 @@ router.delete('/:collectionId/spots/:spotId', verifyToken, isCollectionOwnerOrAd
             return res.status(404).json({ error: 'Collection not found' });
         }
 
-        if (!collection.spots.includes(spotId)) {
+
+        const index = collection.spots.findIndex(
+            (s) => s.spot.toString() === spotId
+        );
+
+        if (index === -1) {
             return res.status(409).json({ error: 'Spot not in collection' });
         }
-        collection.spots.pull(spotId);
+        collection.spots.splice(index, 1);
 
         await collection.save();
         res.json(collection);
