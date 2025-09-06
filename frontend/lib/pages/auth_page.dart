@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '/layout/app_shell.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:findyourspot/services/api_service.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -22,6 +23,12 @@ class _AuthPageState extends State<AuthPage> {
   String error = '';
 
 
+  /// Parses a JSON Web Token (JWT) and returns the decoded payload as a string.
+  ///
+  /// The payload is expected to be in the format of a JSON object, and is
+  /// decoded from the JWT using the base64Url normalize and decode functions.
+  ///
+  /// Throws an [Exception] if the token is not in the correct format.
   String parseJwt(String token) {
     final parts = token.split('.');
     if (parts.length != 3) {
@@ -34,6 +41,14 @@ class _AuthPageState extends State<AuthPage> {
     return decoded;
   }
 
+  /// Submits the form, depending on whether isLogin is true or false.
+  /// If [isLogin] is true, it sends a POST request to the login endpoint.
+  /// If [isLogin] is false, it sends a POST request to the register endpoint.
+  /// 
+  /// If the request is successful, it saves the token and id to the SharedPreferences.
+  /// If the request is not successful, it sets the error state.
+  /// 
+  /// If the request is successful and [isLogin] is false, it navigates to the AppShell.
   Future<void> submit() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) return;
@@ -94,9 +109,12 @@ class _AuthPageState extends State<AuthPage> {
 
       if (!mounted) return;
 
+      final token = prefs.getString('authToken') ?? '';
+      final apiService = ApiService(token);
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const AppShell()),
+        MaterialPageRoute(builder: (_) => AppShell(apiService: apiService)),
       );
 
     } catch (e) {
@@ -108,6 +126,16 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   @override
+  /// Builds the login or registration form, depending on the value of [isLogin].
+  ///
+  /// If [isLogin] is true, it builds a login form with fields for email and password.
+  /// If [isLogin] is false, it builds a registration form with additional fields for username.
+  ///
+  /// It also includes a button to switch between login and registration forms.
+  ///
+  /// If [isLoading] is true, it displays a [CircularProgressIndicator].
+  ///
+  /// If [error] is not empty, it displays the error message below the form fields.
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(isLogin ? 'Login' : 'Registrieren'), centerTitle: true,),

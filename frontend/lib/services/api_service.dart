@@ -31,12 +31,16 @@ class ApiService {
     final response = await http.post(
       Uri.parse('$baseUrl/collections'),
       headers: headers,
-      body: jsonEncode(collection.toJson()),
+      body: jsonEncode({
+        'title': collection.title,
+        'description': collection.description,
+      }),
     );
 
     if (response.statusCode == 201) {
 
-      final data = json.decode(response.body);
+      final decoded = json.decode(response.body);
+      final data = decoded is String ? json.decode(decoded) : decoded;
       return Collection.fromJson(data);
 
     } else {

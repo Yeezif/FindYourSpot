@@ -1,44 +1,6 @@
 import 'spot.dart';
 import 'user.dart';
 
-// class Collection {
-//   final String id;
-//   final String title;
-//   final String description;
-//   final List<Spot> spots;
-//   final User createdBy;
-
-//   Collection({
-//     required this.id,
-//     required this.title,
-//     this.description = '',
-//     this.spots = const [],
-//     required this.createdBy,
-//   });
-
-//   factory Collection.fromJson(Map<String, dynamic> json) {
-//     return Collection(
-//       id: json['_id'],
-//       title: json['title'],
-//       description: json['description'] ?? '',
-//       spots: (json['spots'] as List).map((s) => Spot.fromJson(s)).toList(),
-//       createdBy: User.fromJson(json['createdBy']),
-//     );
-//   }
-
-//   Map<String, dynamic> toJson() {
-
-//     return {
-//       'title': title,
-//       'description': description,
-//       'spots': spots.map((s) => s.id).toList(), // nur IDs senden
-//       'createdBy': createdBy.id, // optional, wenn Backend das erwartet
-//     };
-    
-//   }
-
-// }
-
 
 class Collection {
 
@@ -57,12 +19,25 @@ class Collection {
   });
 
   factory Collection.fromJson(Map<String, dynamic> json) {
+    final createdByData = json['createdBy'];
+    User createdByUser;
+
+    if (createdByData is Map<String, dynamic>) {
+      createdByUser = User.fromJson(createdByData);
+    } else if (createdByData is String) {
+      createdByUser = User(id: createdByData, username: '');
+    } else {
+      createdByUser = User(id: '', username: '');
+    }
+
     return Collection(
       id: json['_id'],
       title: json['title'],
       description: json['description'] ?? '',
-      spots: (json['spots'] as List?)?.map((s) => SpotRef.fromJson(s)).toList() ?? [],
-      createdBy: User.fromJson(json['createdBy']),
+      spots: (json['spots'] as List?)
+              ?.map((s) => SpotRef.fromJson(s))
+              .toList() ?? [],
+      createdBy: createdByUser,
     );
   }
 

@@ -1,8 +1,14 @@
+import 'package:findyourspot/services/api_service.dart';
 import 'package:flutter/material.dart';
 import '/pages/pages.dart';
 
 class AppShell extends StatefulWidget {
-  const AppShell({super.key});
+  final ApiService apiService;
+
+  const AppShell({
+    super.key,
+    required this.apiService,
+  });
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -11,11 +17,17 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _currentIndex = 1;
 
-  final List<Widget> _pages = const [
-    SocialPage(),
-    MapPage(),
-    CollectionsPage(),
-  ];
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      SocialPage(),
+      MapPage(),
+      CollectionsPage(apiService: widget.apiService),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
